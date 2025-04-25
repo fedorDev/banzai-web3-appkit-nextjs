@@ -6,8 +6,9 @@ import { useRouter } from 'next/navigation'
 import styles from './page.module.css'
 import { useAppKitAccount, useAppKitNetwork } from '@reown/appkit/react'
 import poolsConf from '@/config/pools'
-import { Box, Typography, Button, Stack, Link } from '@mui/material'
+import { Box, Typography, Button, Stack } from '@mui/material'
 import PoolListItem from '@/components/PoolListItem'
+import Link from 'next/link'
 
 export default function Home() {
   const { address, isConnected } = useAppKitAccount()
@@ -21,7 +22,6 @@ export default function Home() {
   }, [chainId])
 
   useEffect(() => {
-    console.log('chain is', chainId)
     if (!isConnected) setPools(false)
     if (isConnected) setPools(poolsConf[chainId == 1 ? 'eth' : 'bsc'])
   }, [isConnected, chainId])
@@ -72,42 +72,6 @@ export default function Home() {
         </main>
       )}
 
-      <footer className={styles.footer}>
-        <a href="/rules">
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Game rules
-        </a>
-        <a
-          href="https://four.meme/token/0xa28f31e578aa8cf563782073aaa53478ed5bce6b"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          $BANZAI Token
-        </a>
-        <a href="/links">
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Links
-        </a>
-      </footer>
     </div>
   );
 }

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { SnackbarProvider } from 'notistack'
-import Image from "next/image"
+import Image from 'next/image'
 import styles from "./page.module.css"
 import { wagmiAdapter } from '@/config'
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn'

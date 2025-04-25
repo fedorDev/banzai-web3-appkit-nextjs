@@ -4,7 +4,9 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import { headers } from 'next/headers'
 import ContextProvider from '@/context/walletContext'
-import { AppBar, Box, Link } from '@mui/material'
+import { AppBar, Box } from '@mui/material'
+import Link from 'next/link'
+import Image from 'next/image'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,6 +37,44 @@ export default async function RootLayout({ children }) {
             </Box>
           </Box>
           {children}
+
+          <footer className={styles.footer}>
+            <Link href="/rules">
+              <Image
+                aria-hidden
+                src="/file.svg"
+                alt="File icon"
+                width={16}
+                height={16}
+              />
+              Game rules
+            </Link>
+            <a
+              href="https://four.meme/token/0xa28f31e578aa8cf563782073aaa53478ed5bce6b"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                aria-hidden
+                src="/window.svg"
+                alt="Window icon"
+                width={16}
+                height={16}
+              />
+              $BANZAI Token
+            </a>
+            <Link href="/links">
+              <Image
+                aria-hidden
+                src="/globe.svg"
+                alt="Globe icon"
+                width={16}
+                height={16}
+              />
+              Links
+            </Link>
+          </footer>
+
         </ContextProvider>
       </body>
     </html>
