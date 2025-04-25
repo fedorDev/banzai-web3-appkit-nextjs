@@ -38,7 +38,7 @@ export default async function RootLayout({ children }) {
           </Box>
           {children}
 
-          <footer className={styles.footer}>
+          <footer className={'footer'}>
             <Link href="/rules">
               <Image
                 aria-hidden
