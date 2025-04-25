@@ -164,24 +164,6 @@ a {
   align-items: center;
 }
 
-@media (max-width: 768px) {
-  .pool-card {
-    width: 300px;
-  }
-
-  .activity-card {
-    width: 300px;
-  }
-
-  .pool-list-subtitle {
-    font-size: 10px;
-  }
-
-  .activity-txt {
-    font-size: 10px;
-  }
-}
-
 .pool-card-title {
   position: absolute;
   top: 0;
@@ -213,6 +195,7 @@ a {
 .footer {
   display: flex;
   justify-content: center;
+  align-items: center;
   margin-bottom: 20px;
   gap: 24px;
 }
@@ -225,6 +208,28 @@ a {
 
 .footer img {
   flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    flex-direction: column;
+  }
+
+  .pool-card {
+    width: 300px;
+  }
+
+  .activity-card {
+    width: 300px;
+  }
+
+  .pool-list-subtitle {
+    font-size: 10px;
+  }
+
+  .activity-txt {
+    font-size: 10px;
+  }
 }
 
 @media (prefers-color-scheme: dark) {

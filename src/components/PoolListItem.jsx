@@ -27,7 +27,7 @@ const PoolListItem = ({ data, mode }) => {
   return (
     <Box className={isMobile ? 'pool-list-item-mob' : 'pool-list-item'} onClick={openPool}>
       <img src={`/icons/coins/${mode}.png`} />
-      <Box sx={{ width: '200px', textAlign: 'left', display: 'flex', flexDirection: 'column' }}>
+      <Box sx={{ width: '280px', textAlign: 'left', display: 'flex', flexDirection: 'column' }}>
         <div>{data.title}</div>
         <span className='pool-list-subtitle'>Stake: {data.stake} {rewards[mode]},  Reward: {data.stake*9} {rewards[mode]}</span>
       </Box>
