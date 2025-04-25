@@ -57,7 +57,7 @@ export default function PoolPage() {
       <SnackbarProvider>
       {!isConnected && (
         <main className={styles.main}>
-          <Box sx={{ marginTop: '60px' }}
+          <Box sx={{ marginTop: '60px' }}>
             <Typography variant='h5'>Please connect Wallet!</Typography>
           </Box>
         </main>
@@ -65,7 +65,7 @@ export default function PoolPage() {
 
       {isConnected && !pool && (
         <main className={styles.main}>
-          <Box sx={{ marginTop: '60px' }}
+          <Box sx={{ marginTop: '60px' }}>
             <Typography variant='h5'>404 - pool not found!</Typography>
           </Box>
         </main>
