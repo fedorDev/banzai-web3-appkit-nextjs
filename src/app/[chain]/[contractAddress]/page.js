@@ -57,29 +57,17 @@ export default function PoolPage() {
       <SnackbarProvider>
       {!isConnected && (
         <main className={styles.main}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js logo"
-            width={180}
-            height={38}
-            priority
-          />
+          <Box sx={{ marginTop: '60px' }}
             <Typography variant='h5'>Please connect Wallet!</Typography>
+          </Box>
         </main>
       )}
 
       {isConnected && !pool && (
         <main className={styles.main}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js logo"
-            width={180}
-            height={38}
-            priority
-          />
+          <Box sx={{ marginTop: '60px' }}
             <Typography variant='h5'>404 - pool not found!</Typography>
+          </Box>
         </main>
       )}
 
