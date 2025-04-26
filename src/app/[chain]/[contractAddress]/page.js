@@ -86,7 +86,7 @@ export default function PoolPage() {
             </Grid>
           </Grid>
 
-          <Link href='/' className='back-link' underline='none'>
+          <Link href='/' className='back-link' underline='none' color='inherit'>
             <KeyboardReturnIcon /> Back to pool list
           </Link>
         </main>

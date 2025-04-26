@@ -212,7 +212,10 @@ a {
 
 @media (max-width: 768px) {
   .footer {
+    margin-top: 40px;
     flex-direction: column;
+    padding-left: 30vw;
+    align-items: flex-start;
   }
 
   .pool-card {

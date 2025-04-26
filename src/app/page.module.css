@@ -123,9 +123,15 @@ a.secondary {
 
 @media (max-width: 600px) {
   .page {
-    padding: 32px;
+    padding: 20px;
     margin-bottom: 30px;
     height: 70vh;
+  }
+
+  .logo {
+    width: 90px;
+    height: 90px;
+    border-radius: 45px;
   }
 
   .main {
