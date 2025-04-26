@@ -11,8 +11,9 @@ import {
   Tooltip,
   Typography,
   IconButton,
+  Link,
 } from '@mui/material'
-import { shortAddr, rewards } from '@/helpers/utils'
+import { shortAddr, rewards, getTxLink } from '@/helpers/utils'
 
 let playerCnt = 0
 const creator = '90fe1986092Ec963C4e9368837D02CB297f545Fe'
@@ -21,6 +22,11 @@ const ActivityItem = ({ data, mode }) => {
   if (data.type === 'win') {
     return (
       <Box className='activity-win'>
+        <Link
+          href={getTxLink(mode, data.hash)}
+          target='_blank' underline='none'
+          color='inherit'
+        >
         <Box className='player-info'>
           <Davatar
             size={24}
@@ -32,6 +38,7 @@ const ActivityItem = ({ data, mode }) => {
             {shortAddr(data.to)} won {data.value} {rewards[mode]}
           </Box>
         </Box>
+        </Link>
         <span>{dayjs.unix(data.timestamp).fromNow(true)} ago</span>
       </Box>
     )
@@ -39,16 +46,22 @@ const ActivityItem = ({ data, mode }) => {
 
   return (
     <Box className='activity-stake'>
-      <Box className='player-info'>
-        <Davatar
-          size={24}
-          address={data.from}
-          generatedAvatarType='blockies'
-        />
-        <Box className='activity-txt'>
-          {shortAddr(data.from)} staked {data.value} {rewards[mode]}
+      <Link
+        href={getTxLink(mode, data.hash)}
+        target='_blank' underline='none'
+        color='inherit'
+        >
+        <Box className='player-info'>
+          <Davatar
+            size={24}
+            address={data.from}
+            generatedAvatarType='blockies'
+          />
+          <Box className='activity-txt'>
+            {shortAddr(data.from)} staked {data.value} {rewards[mode]}
+          </Box>
         </Box>
-      </Box>
+      </Link>
       <span>{dayjs.unix(data.timestamp).fromNow(true)} ago</span>
     </Box>
   )
