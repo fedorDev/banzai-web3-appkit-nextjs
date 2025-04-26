@@ -30,6 +30,7 @@ const PoolCard = ({ data, mode, address }) => {
 
   const { enqueueSnackbar } = useSnackbar()
   const [chance, setChance] = useState(0)
+  const [loadingBtn, setLoadingBtn] = useState(false)
   const [pool, setPool] = useState([])
   const [lastWinner, setLastWinner] = useState(false)
 
@@ -64,15 +65,18 @@ const PoolCard = ({ data, mode, address }) => {
     })
 
     if (req) {
+      setLoadingBtn(true)
       enqueueSnackbar(`Called smartcontract, detecting winner...`, { variant: 'success' })
-      setTimeout(loadPoolData, 2000)
+      setTimeout(contractData.refetch(), 2000)
     }
   }
 
   const parsePoolData = () => {
     let c = 0
+    setLoadingBtn(false)
+    const lowAddr = address.toLowerCase()
     pool.forEach((item) => {
-      if (item == address) c++
+      if (item.toLowerCase() == lowAddr) c++
     })
     setChance(c*10)
   }
@@ -87,6 +91,7 @@ const PoolCard = ({ data, mode, address }) => {
     })
 
     if (res) {
+      setLoadingBtn(true)
       console.log('data', res)
       enqueueSnackbar('Added your stake!', { variant: 'success' })
     }
@@ -103,7 +108,10 @@ const PoolCard = ({ data, mode, address }) => {
   }, [pool])
 
   useEffect(() => {
-    updater = setInterval(() => contractData.refetch(), 30000)
+    updater = setInterval(() => {
+      setLoadingBtn(false)
+      contractData.refetch()
+    }, 20000)
 
     return () => {
       clearInterval(updater)
@@ -120,11 +128,11 @@ const PoolCard = ({ data, mode, address }) => {
 
   return (
     <Box className='pool-card'>
-      <Typography variant='h4' sx={{ display: 'flex', alignItems: 'center' }}>
+      <Typography variant='h5' sx={{ display: 'flex', alignItems: 'center' }}>
         {data.title} Pool
       </Typography>
 
-      <Typography variant='h5' sx={{ display: 'flex', alignItems: 'center' }}>
+      <Typography variant='h6' sx={{ display: 'flex', alignItems: 'center' }}>
         Pool prize: {data.stake * 9}
         <img className={'coin-big'} src={`/icons/coins/${mode}.png`} />
       </Typography>
@@ -143,10 +151,22 @@ const PoolCard = ({ data, mode, address }) => {
 
       <Stack direction='row' spacing={2}>
         {pool.length > 9 && (
-          <Button variant='contained' color='secondary' onClick={detectWinner}>Detect winner</Button>
+          <Button
+            variant='contained'
+            color='secondary' onClick={detectWinner}
+            loading={loadingBtn}
+          >
+            Detect winner
+          </Button>
         )}
         {pool.length < 10 && (
-          <Button variant='contained' onClick={addStake}>Stake {data.stake} {rewards[mode]}</Button>
+          <Button
+            variant='contained'
+            onClick={addStake}
+            loading={loadingBtn}
+          >
+            Stake {data.stake} {rewards[mode]}
+          </Button>
         )}
         <Button
           variant='contained'

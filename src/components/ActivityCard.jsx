@@ -70,7 +70,7 @@ const ActivityCard = ({ contract, mode, address }) => {
   }
 
   useEffect(() => {
-    updater = setInterval(loadActivity, 30000)
+    updater = setInterval(loadActivity, 20000)
     loadActivity()
     return () => {
       clearInterval(updater)
@@ -79,7 +79,7 @@ const ActivityCard = ({ contract, mode, address }) => {
 
   return (
     <Box className='activity-card'>
-      <Typography variant='h4' sx={{ display: 'flex', alignItems: 'center' }}>
+      <Typography variant='h5' sx={{ display: 'flex', alignItems: 'center' }}>
         Activity:
       </Typography>
 
