@@ -54,7 +54,7 @@ const PoolCard = ({ data, mode, address }) => {
   }
 
   const detectWinner = async () => {
-    const data = await writeContractAsync({
+    const req = await writeContractAsync({
       address: data.address,
       abi: GameAbi,
       functionName: 'detectWinner',
@@ -63,7 +63,7 @@ const PoolCard = ({ data, mode, address }) => {
       return false
     })
 
-    if (data) {
+    if (req) {
       enqueueSnackbar(`Called smartcontract, detecting winner...`, { variant: 'success' })
       setTimeout(loadPoolData, 2000)
     }
