@@ -93,9 +93,11 @@ const ActivityCard = ({ contract, mode, address }) => {
   return (
     <Box className='activity-card'>
       <Typography variant='h5' sx={{ display: 'flex', alignItems: 'center' }}>
-        Activity:
+        Activity
       </Typography>
-
+      <Typography variant='body' sx={{ textAlign: 'center', fontSize: '10px' }}>
+        <em>Data on this page is reloading every 20 sec. No need to reload page.</em>
+      </Typography>
       {!loaded && (
         <Box sx={{ minHeight: '200px', paddingTop: '80px' }}>
           <CircularProgress />
