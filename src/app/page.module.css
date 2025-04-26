@@ -124,6 +124,7 @@ a.secondary {
 @media (max-width: 600px) {
   .page {
     padding: 32px;
+    margin-bottom: 30px;
     height: 70vh;
   }
 
