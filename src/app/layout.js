@@ -7,6 +7,7 @@ import ContextProvider from '@/context/walletContext'
 import { AppBar, Box } from '@mui/material'
 import Link from 'next/link'
 import Image from 'next/image'
+import ReactGA from 'react-ga4'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,9 +19,23 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+ReactGA.initialize('G-D1CQDQ5DJ3')
+/*
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D1CQDQ5DJ3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-D1CQDQ5DJ3');
+    </script> */
+
 export default async function RootLayout({ children }) {
   const d = await headers()
   const cookies = d.get('cookie')
+
+
 
   return (
     <html lang="en">
