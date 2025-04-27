@@ -58,6 +58,7 @@ const handler = async (req, res) => {
   const now = Date.now()
   if (!lastUpdated || !cache || now > lastUpdated + 3*60*1000) {
     lastUpdated = now
+    cache = []
     await Promise.allSettled(poolsConf.eth.map((pool) => reloadData(pool, 'eth')))
     await Promise.allSettled(poolsConf.bsc.map((pool) => reloadData(pool, 'bsc')))
 
