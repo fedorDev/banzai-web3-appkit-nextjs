@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Slider from "react-slick"
-import { Box, Stack } from '@mui/material'
+import { Box, Stack, useMediaQuery } from '@mui/material'
 import { useRouter } from 'next/navigation'
 import Davatar from '@davatar/react'
 import { shortAddr, rewards, getTxLink } from '@/helpers/utils'
@@ -12,6 +12,7 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
 const LastWinnersCarousel = ({ data, mode }) => {
+  const isMobile = useMediaQuery('(max-width: 768px)')
   const [list, setList] = useState([])
   const settings = {
     dots: false,
@@ -39,7 +40,7 @@ const LastWinnersCarousel = ({ data, mode }) => {
   if (!list || list.length < 1) return <></>
 
   return (
-    <Box sx={{ width: 320, height: 40 }} className='slider-container'>
+    <Box sx={{ width: 320, height: 40, marginTop: isMobile ? '50px' : 0 }} className='slider-container'>
       <Slider {...settings}>
         {list.map((item) => (
           <Box className='activity-win' key={item.hash}>
