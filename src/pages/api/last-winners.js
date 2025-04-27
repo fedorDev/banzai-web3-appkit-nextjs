@@ -69,7 +69,7 @@ const handler = async (req, res) => {
     console.log('Use cache')
   }
 
-  res.status(200).json({ winners: cache })
+  res.status(200).json({ winners: cache.slice(0, 8) })
 }
 
 export default handler
