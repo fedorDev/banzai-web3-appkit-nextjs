@@ -37,7 +37,11 @@ const LastWinnersCarousel = ({ data, mode }) => {
     loadWinnersList()
   }, [])
 
-  if (!list || list.length < 1) return <></>
+  if (!list || list.length < 1) return (
+    <Box sx={{ width: 320, height: 40, marginTop: isMobile ? '50px' : 0 }} className='slider-container'>
+      {' '}
+    </Box>
+  )
 
   return (
     <Box sx={{ width: 320, height: 40, marginTop: isMobile ? '50px' : 0 }} className='slider-container'>
