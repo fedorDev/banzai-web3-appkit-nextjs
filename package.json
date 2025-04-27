@@ -13,6 +13,7 @@
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^7.0.2",
     "@mui/material": "^7.0.2",
+    "@mui/styles": "^6.4.11",
     "@mui/x-charts": "^8.0.0",
     "@next/third-parties": "^15.3.1",
     "@reown/appkit": "^1.7.3",
@@ -26,6 +27,8 @@
     "pino-pretty": "^13.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-slick": "^0.30.3",
+    "slick-carousel": "^1.8.1",
     "viem": "^2.27.2",
     "wagmi": "^2.14.16"
   },

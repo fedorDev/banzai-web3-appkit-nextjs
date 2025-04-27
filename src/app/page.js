@@ -8,6 +8,7 @@ import { useAppKitAccount, useAppKitNetwork } from '@reown/appkit/react'
 import poolsConf from '@/config/pools'
 import { Box, Typography, Button, Stack } from '@mui/material'
 import PoolListItem from '@/components/PoolListItem'
+import LastWinners from '@/components/LastWinners'
 import Link from 'next/link'
 
 export default function Home() {
@@ -34,6 +35,8 @@ export default function Home() {
     <div className={styles.page}>
       {!pools && (
         <main className={styles.main}>
+          <LastWinners />
+
           <Image
             className={styles.logo}
             src="/icons/big-flag.png"
@@ -61,6 +64,7 @@ export default function Home() {
 
       {pools && pools.length > 0 && (
         <main className={styles.main}>        
+          <LastWinners />
           <Typography variant='h5'>Pools available:</Typography>
           <Stack direction='column'>
             {pools.map((pool) => (
