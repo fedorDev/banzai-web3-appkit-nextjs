@@ -43,7 +43,6 @@ async function reloadData(pool, chain) {
   if (req && req.ok) {
     const data = await req.json()
     if (data.result && data.result.length > 0) {
-      console.log('Internal TX DATA', data.result)
       data.result.forEach((i) => {
         const d = {
           value: formatEther(i.value),
@@ -72,8 +71,8 @@ async function reloadData(pool, chain) {
 
   if (reqTx && reqTx.ok) {
     const data = await reqTx.json()
+    console.log('AAA', data)
     if (data.result && data.result.length > 0) {
-      console.log('TX DATA', data.result)
       data.result.forEach((i) => {
         const d = {
           value: formatEther(i.value),

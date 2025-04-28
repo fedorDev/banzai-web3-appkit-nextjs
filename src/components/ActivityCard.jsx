@@ -100,7 +100,7 @@ const ActivityCard = ({ contract, mode, address }) => {
       setPrice(window.latest_rates[mode])
     }
 
-    updater = setInterval(loadActivity, 20000)
+    updater = setInterval(loadActivity, 7000)
 
     loadActivity()
     return () => {
