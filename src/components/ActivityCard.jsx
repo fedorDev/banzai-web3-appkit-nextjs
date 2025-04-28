@@ -85,8 +85,8 @@ const ActivityCard = ({ contract, mode, address }) => {
   const [price, setPrice] = useState(0)
 
   const loadActivity = async () => {
-    console.log('RELOAD ACTIVITY')
-    const req = await fetch(`/api/pool-transactions/?mode=${mode}&address=${contract.address}`)
+    const c = Date.now()
+    const req = await fetch(`/api/pool-transactions/?mode=${mode}&address=${contract.address}&t=${c}`)
 
     if (!req || !req.ok) return false
     const data = await req.json()
