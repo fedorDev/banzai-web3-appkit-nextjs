@@ -26,8 +26,10 @@ function isValidAddress(address) {
 }
 
 async function reloadData(pool, chain) {
-  console.log('POOL', pool)
   const result = []
+  const started = new Date()
+  console.log('Started fetchin pool transactions', started)
+
   let url = `https://api.${chain == 'eth' ? 'etherscan' : 'bscscan'}.com/api?module=account`
   url += `&action=txlistinternal&address=${pool.address}&page=1&offset=5&sort=desc`
   url += `&startblock=${startBlock[chain]}&apikey=${chain == 'eth' ? ETH_API_KEY : BSC_API_KEY}`
@@ -91,6 +93,9 @@ async function reloadData(pool, chain) {
   const now = Date.now()
   cache[pool.address] = _.orderBy(result, ['timestamp'], ['desc']).slice(0, 16)
   lastUpdated[pool.address] = now
+
+  const ended = new Date()
+  console.log('ended fetching', ended)
 }
 
 const handler = async (req, res) => {
