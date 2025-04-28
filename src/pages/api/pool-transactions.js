@@ -117,7 +117,7 @@ const handler = async (req, res) => {
     console.log('Use cache')
   }
 
-  res.status(200).json({ transactions: cache[addr] })
+  res.status(200).json({ transactions: cache[addr] || [] })
 }
 
 export default handler
