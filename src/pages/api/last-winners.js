@@ -20,9 +20,8 @@ function isValidAddress(address) {
 }
 
 async function reloadData(pool, chain) {
-  console.log('called reloadData', pool, chain)
-
-  let url = `https://api.${chain == 'eth' ? 'etherscan' : 'bscscan'}.com/api?module=account`
+  let url = `https://api.${chain == 'eth' ? 'etherscan' : 'bscscan'}.com/v2/api?module=account`
+  url += `&chainId=${chain == 'eth' ? '1' : '56'}`
   url += `&action=txlistinternal&address=${pool.address}&page=1&offset=5&sort=desc`
   url += `&apikey=${chain == 'eth' ? ETH_API_KEY : BSC_API_KEY}`
 

@@ -30,7 +30,8 @@ async function reloadData(pool, chain) {
   const started = new Date()
   console.log('Started fetchin pool transactions', started)
 
-  let url = `https://api.${chain == 'eth' ? 'etherscan' : 'bscscan'}.com/api?module=account`
+  let url = `https://api.${chain == 'eth' ? 'etherscan' : 'bscscan'}.com/v2/api?module=account`
+  url += `&chainId=${chain == 'eth' ? '1' : '56'}`
   url += `&action=txlistinternal&address=${pool.address}&page=1&offset=5&sort=desc`
   url += `&startblock=${startBlock[chain]}&apikey=${chain == 'eth' ? ETH_API_KEY : BSC_API_KEY}`
 
@@ -59,9 +60,10 @@ async function reloadData(pool, chain) {
     }
   }
 
-  let urlTx = `https://api.${chain == 'eth' ? 'etherscan' : 'bscscan'}.com/api?module=account`
+  let urlTx = `https://api.${chain == 'eth' ? 'etherscan' : 'bscscan'}.com/v2/api?module=account`
+  urlTx += `&chainId=${chain == 'eth' ? '1' : '56'}`
   urlTx += `&action=txlist&address=${pool.address}&page=1&offset=20&sort=desc`
-  urlTx += `&apikey=${chain == 'eth' ? ETH_API_KEY : BSC_API_KEY}`
+  urlTx += `&startblock=${startBlock[chain]}&apikey=${chain == 'eth' ? ETH_API_KEY : BSC_API_KEY}`
 
   // &startblock=0
   // &endblock=2702578
