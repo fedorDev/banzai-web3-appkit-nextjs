@@ -12,6 +12,7 @@ import {
   Typography,
   IconButton,
   Link,
+  useMediaQuery,
 } from '@mui/material'
 import { shortAddr, rewards, getTxLink } from '@/helpers/utils'
 
@@ -19,7 +20,15 @@ let playerCnt = 0
 const creator = '90fe1986092Ec963C4e9368837D02CB297f545Fe'
 
 const ActivityItem = ({ data, mode, price }) => {
-  let p = price > 0 ? data.value * price : false
+  const isMobile = useMediaQuery('(max-width: 768px)')
+  let formatted = ''
+  let p = false
+
+  if (price > 0) {
+    p = data.value * price
+    formatted = isMobile ? Math.floor(p) : p.toFixed(2)
+  }
+
   if (data.type === 'win') {
     return (
       <Box className='activity-win'>
@@ -37,7 +46,7 @@ const ActivityItem = ({ data, mode, price }) => {
 
           <Box className='activity-txt'>
             {shortAddr(data.to)} won {data.value} {rewards[mode]}
-            {p && (<em> ({p.toFixed(2)} USD)</em>)}
+            {p && (<em> (${formatted})</em>)}
           </Box>
         </Box>
         </Link>
@@ -61,7 +70,7 @@ const ActivityItem = ({ data, mode, price }) => {
           />
           <Box className='activity-txt'>
             {shortAddr(data.from)} staked {data.value} {rewards[mode]}
-            {p && (<em> ({p.toFixed(2)} USD)</em>)}
+            {p && (<em> (${formatted})</em>)}
           </Box>
         </Box>
       </Link>

@@ -8,6 +8,7 @@ import {
   Tooltip,
   Typography,
   IconButton,
+  useMediaQuery,
 } from '@mui/material'
 import { useReadContract, useWriteContract, useSendTransaction } from 'wagmi'
 import GameAbi from '@/abi/Game.json'
@@ -20,6 +21,7 @@ const creator = '90fe1986092Ec963C4e9368837D02CB297f545Fe'
 let updater
 
 const PoolCard = ({ data, mode, address }) => {
+  const isMobile = useMediaQuery('(max-width: 768px)')
   const contractData = useReadContract({
     address: data.address,
     abi: GameAbi,
@@ -137,10 +139,12 @@ const PoolCard = ({ data, mode, address }) => {
         {data.title} Pool
       </Typography>
 
-      <Typography variant='h6' sx={{ display: 'flex', alignItems: 'center' }}>
-        Pool prize: {data.stake * 9}
+      <Typography
+        variant='h6'
+        sx={{ display: 'flex', alignItems: 'center' }}>
+        <span>Prize: {data.stake * 9}</span>
         <img className={'coin-big'} src={`/icons/coins/${mode}.png`} />
-        {price > 0 && (<em style={{ color: '#bbb' }}> ({p.toFixed(2)} USD)</em>)}
+        {price > 0 && (<em style={{ color: '#bbb', fontSize: '14px' }}> (${p.toFixed(1)})</em>)}
       </Typography>
       
       <Box sx={{ height: '150px' }}>
