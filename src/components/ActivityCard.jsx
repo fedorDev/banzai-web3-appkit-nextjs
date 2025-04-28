@@ -79,14 +79,13 @@ const ActivityItem = ({ data, mode, price }) => {
   )
 }
 
-let updater
-
 const ActivityCard = ({ contract, mode, address }) => {
   const [list, setList] = useState([])
   const [loaded, setLoaded] = useState(false)
   const [price, setPrice] = useState(0)
 
   const loadActivity = async () => {
+    console.log('RELOAD ACTIVITY')
     const req = await fetch(`/api/pool-transactions/?mode=${mode}&address=${contract.address}`)
 
     if (!req || !req.ok) return false
@@ -96,14 +95,15 @@ const ActivityCard = ({ contract, mode, address }) => {
   }
 
   useEffect(() => {
+    const updater = setInterval(loadActivity, 7000)
+
     if (window.latest_rates && window.latest_rates[mode]) {
       setPrice(window.latest_rates[mode])
     }
 
-    updater = setInterval(loadActivity, 7000)
-
     loadActivity()
     return () => {
+      console.log('clear Interval')
       clearInterval(updater)
     }
   }, [])
