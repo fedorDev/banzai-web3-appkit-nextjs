@@ -5,6 +5,11 @@ import poolsConf from '@/config/pools'
 const ETH_API_KEY = process.env.ETH_API_KEY
 const BSC_API_KEY = process.env.BSC_API_KEY
 
+const startBlock = {
+  eth: 22185982,
+  bsc: 48022467,
+}
+
 export const config = {
   api: {
     bodyParser: false,
@@ -25,7 +30,7 @@ async function reloadData(pool, chain) {
   const result = []
   let url = `https://api.${chain == 'eth' ? 'etherscan' : 'bscscan'}.com/api?module=account`
   url += `&action=txlistinternal&address=${pool.address}&page=1&offset=5&sort=desc`
-  url += `&apikey=${chain == 'eth' ? ETH_API_KEY : BSC_API_KEY}`
+  url += `&startblock=${startBlock[chain]}&apikey=${chain == 'eth' ? ETH_API_KEY : BSC_API_KEY}`
 
   // &startblock=0
   // &endblock=2702578
@@ -81,7 +86,9 @@ async function reloadData(pool, chain) {
     }
   }
 
+  const now = Date.now()
   cache[pool.address] = _.orderBy(result, ['timestamp'], ['desc']).slice(0, 16)
+  lastUpdated[pool.address] = now
 }
 
 const handler = async (req, res) => {
@@ -105,8 +112,7 @@ const handler = async (req, res) => {
   if (!lastUpdated[addr] || !cache[addr] || now > lastUpdated[addr] + 20*1000) {
     console.log('Need update!')
     lastUpdated[addr] = now
-    await reloadData(pool[0], req.query.mode)
-    // force reload cache
+    reloadData(pool[0], req.query.mode) // trigger updating in background
   } else {
     console.log('Use cache')
   }
