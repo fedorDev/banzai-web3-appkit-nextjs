@@ -32,6 +32,7 @@ const PoolCard = ({ data, mode, address }) => {
   const [chance, setChance] = useState(0)
   const [loadingBtn, setLoadingBtn] = useState(false)
   const [pool, setPool] = useState([])
+  const [price, setPrice] = useState(0)
   const [lastWinner, setLastWinner] = useState(false)
 
   const progress = pool.length * 10
@@ -105,6 +106,9 @@ const PoolCard = ({ data, mode, address }) => {
 
   useEffect(() => {
     parsePoolData()
+    if (window.latest_rates && window.latest_rates[mode]) {
+      setPrice(window.latest_rates[mode])
+    }
   }, [pool])
 
   useEffect(() => {
@@ -125,6 +129,7 @@ const PoolCard = ({ data, mode, address }) => {
   }
 
   const isCreator = address.includes(creator.toLowerCase())
+  const p = data.stake * 9 * price
 
   return (
     <Box className='pool-card'>
@@ -135,6 +140,7 @@ const PoolCard = ({ data, mode, address }) => {
       <Typography variant='h6' sx={{ display: 'flex', alignItems: 'center' }}>
         Pool prize: {data.stake * 9}
         <img className={'coin-big'} src={`/icons/coins/${mode}.png`} />
+        {price > 0 && (<em style={{ color: '#bbb' }}> ({p.toFixed(2)} USD)</em>)}
       </Typography>
       
       <Box sx={{ height: '150px' }}>

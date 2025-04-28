@@ -17,6 +17,8 @@ export default function Home() {
   const router = useRouter()
 
   const [pools, setPools] = useState(false)
+  const [rates, setRates] = useState(false)
+
   const chain = useMemo(() => {
     if (chainId == 1) return 'eth'
     return 'bsc'
@@ -27,6 +29,21 @@ export default function Home() {
     if (isConnected) setPools(poolsConf[chainId == 1 ? 'eth' : 'bsc'])
   }, [isConnected, chainId])
 
+  const loadRates = async () => {
+    const req = await fetch('/api/coin-prices/').catch((err) => false)
+    if (!req || !req.ok) return false
+
+    const data = await req.json()
+    if (data && data.rates) {
+      window.latest_rates = data.rates // set global
+      setRates(data.rates)
+    }    
+  }
+
+  useEffect(() => {
+    loadRates()
+  }, [])
+
   const openPool = (address) => {
     router.push(`/${chain}/${address}/`)
   }
@@ -35,7 +52,7 @@ export default function Home() {
     <div className={styles.page}>
       {!pools && (
         <main className={styles.main}>
-          <LastWinners />
+          <LastWinners rates={rates} />
 
           <Image
             className={styles.logo}
@@ -64,7 +81,7 @@ export default function Home() {
 
       {pools && pools.length > 0 && (
         <main className={styles.main}>        
-          <LastWinners />
+          <LastWinners rates={rates} />
           <Typography variant='h5'>Pools available:</Typography>
           <Stack direction='column'>
             {pools.map((pool) => (

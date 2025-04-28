@@ -18,7 +18,8 @@ import { shortAddr, rewards, getTxLink } from '@/helpers/utils'
 let playerCnt = 0
 const creator = '90fe1986092Ec963C4e9368837D02CB297f545Fe'
 
-const ActivityItem = ({ data, mode }) => {
+const ActivityItem = ({ data, mode, price }) => {
+  let p = price > 0 ? data.value * price : false
   if (data.type === 'win') {
     return (
       <Box className='activity-win'>
@@ -36,6 +37,7 @@ const ActivityItem = ({ data, mode }) => {
 
           <Box className='activity-txt'>
             {shortAddr(data.to)} won {data.value} {rewards[mode]}
+            {p && (<em> ({p.toFixed(2)} USD)</em>)}
           </Box>
         </Box>
         </Link>
@@ -59,6 +61,7 @@ const ActivityItem = ({ data, mode }) => {
           />
           <Box className='activity-txt'>
             {shortAddr(data.from)} staked {data.value} {rewards[mode]}
+            {p && (<em> ({p.toFixed(2)} USD)</em>)}
           </Box>
         </Box>
       </Link>
@@ -72,6 +75,7 @@ let updater
 const ActivityCard = ({ contract, mode, address }) => {
   const [list, setList] = useState([])
   const [loaded, setLoaded] = useState(false)
+  const [price, setPrice] = useState(0)
 
   const loadActivity = async () => {
     const req = await fetch(`/api/pool-transactions/?mode=${mode}&address=${contract.address}`)
@@ -83,7 +87,12 @@ const ActivityCard = ({ contract, mode, address }) => {
   }
 
   useEffect(() => {
+    if (window.latest_rates && window.latest_rates[mode]) {
+      setPrice(window.latest_rates[mode])
+    }
+
     updater = setInterval(loadActivity, 20000)
+
     loadActivity()
     return () => {
       clearInterval(updater)
@@ -111,7 +120,7 @@ const ActivityCard = ({ contract, mode, address }) => {
       )}
       <Stack spacing={1} sx={{ width: '100%' }}>
         {loaded && list.map((item) => (
-          <ActivityItem data={item} key={item.hash} mode={mode} />
+          <ActivityItem data={item} key={item.hash} mode={mode} price={price} />
         ))}
       </Stack>
     </Box>

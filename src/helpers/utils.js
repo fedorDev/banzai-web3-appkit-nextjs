@@ -7,7 +7,7 @@ export const rewards = {
 
 export const shortAddr = (val, prefix) => {
   if (prefix) return prefix + val.substring(0, 5) + '..'+ val.slice(-5)
-  return val.substring(0, 7) + '..'+ val.slice(-5)
+  return val.substring(0, 6) + '..'+ val.slice(-4)
 }
 
 export const getTxLink = (mode, hash) => {

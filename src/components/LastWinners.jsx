@@ -11,7 +11,7 @@ import dayjs from 'dayjs'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
-const LastWinnersCarousel = ({ data, mode }) => {
+const LastWinnersCarousel = ({ rates }) => {
   const isMobile = useMediaQuery('(max-width: 768px)')
   const [list, setList] = useState([])
   const settings = {
@@ -44,24 +44,32 @@ const LastWinnersCarousel = ({ data, mode }) => {
   )
 
   return (
-    <Box sx={{ width: 320, height: 40, marginTop: isMobile ? '50px' : 0 }} className='slider-container'>
+    <Box sx={{ width: isMobile ? 320 : 460, height: 40, marginTop: isMobile ? '50px' : 0 }} className='slider-container'>
       <Slider {...settings}>
-        {list.map((item) => (
-          <Box className='activity-win' key={item.hash}>
-            <Box className='player-info'>
-              <Davatar
-                size={24}
-                address={item.to}
-                generatedAvatarType='blockies'
-              />
+        {list.map((item) => {
+          let p = false
 
-              <Box className='activity-txt'>
-                {shortAddr(item.to)} won {item.value} {rewards[item.chain]}
+          if (!isMobile && rates && rates[item.chain]) {
+            p = item.value * rates[item.chain]
+          }
+
+          return (
+            <Box className='activity-win' key={item.hash}>
+              <Box className='player-info'>
+                <Davatar
+                  size={24}
+                  address={item.to}
+                  generatedAvatarType='blockies'
+                />
+
+                <Box className='activity-txt'>
+                  {shortAddr(item.to)} won {item.value} {rewards[item.chain]} {p && (<em>({p.toFixed(2)} USD)</em>)}
+                </Box>
               </Box>
+              <span>{dayjs.unix(item.timestamp).fromNow(true)} ago</span>
             </Box>
-            <span>{dayjs.unix(item.timestamp).fromNow(true)} ago</span>
-          </Box>
-        ))}
+          )
+        })}
       </Slider>
     </Box>
   )
