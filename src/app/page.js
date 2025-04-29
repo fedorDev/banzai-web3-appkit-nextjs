@@ -85,7 +85,7 @@ export default function Home() {
           <Typography variant='h5'>Pools available:</Typography>
           <Stack direction='column'>
             {pools.map((pool) => (
-              <PoolListItem data={pool} mode={chain} key={pool.address} />
+              <PoolListItem data={pool} mode={chain} key={pool.address} rates={rates} />
             ))}
           </Stack>
 
