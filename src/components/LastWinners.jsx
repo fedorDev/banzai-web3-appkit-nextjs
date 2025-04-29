@@ -26,7 +26,7 @@ const LastWinnersCarousel = ({ rates }) => {
   }
 
   const loadWinnersList = async () => {
-    const req = await fetch('/api/last-winners/')
+    const req = await fetch('/api/last-winners')
   
     if (!req || !req.ok) return false
     const data = await req.json()

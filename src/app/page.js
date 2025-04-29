@@ -30,7 +30,7 @@ export default function Home() {
   }, [isConnected, chainId])
 
   const loadRates = async () => {
-    const req = await fetch('/api/coin-prices/').catch((err) => false)
+    const req = await fetch('/api/coin-prices').catch((err) => false)
     if (!req || !req.ok) return false
 
     const data = await req.json()

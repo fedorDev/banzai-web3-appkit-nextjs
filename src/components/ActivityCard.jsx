@@ -86,7 +86,7 @@ const ActivityCard = ({ contract, mode, address }) => {
 
   const loadActivity = async () => {
     const c = Date.now()
-    const req = await fetch(`/api/pool-transactions/?mode=${mode}&address=${contract.address}&t=${c}`)
+    const req = await fetch(`/api/pool-transactions?mode=${mode}&address=${contract.address}&t=${c}`)
 
     if (!req || !req.ok) return false
     const data = await req.json()
