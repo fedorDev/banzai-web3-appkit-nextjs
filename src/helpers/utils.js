@@ -12,5 +12,5 @@ export const shortAddr = (val, prefix) => {
 
 export const getTxLink = (mode, hash) => {
   if (mode == 'bsc') return `https://bscscan.com/tx/${hash}`
-  return `https://etherscan.com/tx/${hash}`
+  return `https://etherscan.io/tx/${hash}`
 }
