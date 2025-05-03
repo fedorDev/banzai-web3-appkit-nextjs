@@ -32,7 +32,7 @@ const PoolCard = ({ data, mode, address }) => {
 
   const { enqueueSnackbar } = useSnackbar()
   const [chance, setChance] = useState(0)
-  const [loadingBtn, setLoadingBtn] = useState(true)
+  const [loadingBtn, setLoadingBtn] = useState(false)
   const [pool, setPool] = useState([])
   const [price, setPrice] = useState(0)
   const [lastWinner, setLastWinner] = useState(false)
@@ -200,6 +200,7 @@ const PoolCard = ({ data, mode, address }) => {
             variant='contained'
             onClick={addStake}
             loading={loadingBtn}
+            disabled={true}
           >
             Stake {data.stake} {rewards[mode]}
           </Button>
