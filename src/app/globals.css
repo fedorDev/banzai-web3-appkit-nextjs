@@ -254,6 +254,19 @@ a {
 }
 
 @media (prefers-color-scheme: dark) {
+  .activity-txt {
+    color: #ccc;
+  }
+
+  .activity-win {
+    background-color: #0a8a1a;
+    color: black;
+  }
+
+  .activity-stake {
+    color: #ccc;
+  }
+
   html {
     color-scheme: dark;
   }

@@ -12,7 +12,7 @@ import {
 } from '@mui/material'
 import { useReadContract, useWriteContract, useSendTransaction } from 'wagmi'
 import GameAbi from '@/abi/Game.json'
-import { Gauge } from '@mui/x-charts/Gauge'
+import { Gauge, gaugeClasses } from '@mui/x-charts/Gauge'
 import { useSnackbar } from 'notistack'
 import { shortAddr, rewards } from '@/helpers/utils'
 import { parseEther } from 'viem'
@@ -155,6 +155,15 @@ const PoolCard = ({ data, mode, address }) => {
           startAngle={-90}
           endAngle={90}
           text={({ value, valueMax }) => `${pool.length} / 10`}
+          sx={(theme) => ({
+            /*
+            [`& .${gaugeClasses.valueArc}`]: {
+              fill: '#52b202',
+            }, */
+            [`& .${gaugeClasses.referenceArc}`]: {
+              fill: '#ccc',
+            },
+          })}
         />
       </Box>
       Your chance: {chance}%
