@@ -17,7 +17,7 @@ import { useSnackbar } from 'notistack'
 import { shortAddr, rewards } from '@/helpers/utils'
 import { parseEther } from 'viem'
 
-const creator = '90fe1986092Ec963C4e9368837D02CB297f545Fe'
+const creator = '0x90fe1986092Ec963C4e9368837D02CB297f545Fe'
 let updater
 
 const PoolCard = ({ data, mode, address }) => {
@@ -54,6 +54,23 @@ const PoolCard = ({ data, mode, address }) => {
     if (Number(result) > 0) {
       const p = result.substring(26)
       setLastWinner(address.includes(p) ? 'You!' : shortAddr(p, '0x'))
+    }
+  }
+
+  const claimRewards = async () => {
+    const req = await writeContractAsync({
+      address: data.address,
+      abi: GameAbi,
+      functionName: 'claimReward',
+    }).catch((err) => {
+      enqueueSnackbar('Failed to get rewards', { variant: 'error' })
+      return false
+    })
+
+    if (req) {
+      setLoadingBtn(true)
+      enqueueSnackbar(`Getting reward...`, { variant: 'success' })
+      setTimeout(contractData.refetch(), 2000)
     }
   }
 
@@ -130,7 +147,7 @@ const PoolCard = ({ data, mode, address }) => {
     return `https://etherscan.io/address/${data.address}`
   }
 
-  const isCreator = address.includes(creator.toLowerCase())
+  const isCreator = address == creator
   const p = data.stake * 9 * price
 
   return (
