@@ -32,7 +32,7 @@ const PoolCard = ({ data, mode, address }) => {
 
   const { enqueueSnackbar } = useSnackbar()
   const [chance, setChance] = useState(0)
-  const [loadingBtn, setLoadingBtn] = useState(false)
+  const [loadingBtn, setLoadingBtn] = useState(true)
   const [pool, setPool] = useState([])
   const [price, setPrice] = useState(0)
   const [lastWinner, setLastWinner] = useState(false)
