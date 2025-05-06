@@ -74,23 +74,6 @@ const PoolCard = ({ data, mode, address }) => {
     }
   }
 
-  const detectWinner = async () => {
-    const req = await writeContractAsync({
-      address: data.address,
-      abi: GameAbi,
-      functionName: 'detectWinner',
-    }).catch((err) => {
-      enqueueSnackbar('Failed to detect winner', { variant: 'error' })
-      return false
-    })
-
-    if (req) {
-      setLoadingBtn(true)
-      enqueueSnackbar(`Called smartcontract, detecting winner...`, { variant: 'success' })
-      setTimeout(contractData.refetch(), 2000)
-    }
-  }
-
   const parsePoolData = () => {
     let c = 0
     setLoadingBtn(false)
@@ -189,10 +172,9 @@ const PoolCard = ({ data, mode, address }) => {
         {pool.length > 9 && (
           <Button
             variant='contained'
-            color='secondary' onClick={detectWinner}
-            loading={loadingBtn}
+            color='secondary'
           >
-            Detect winner
+            Please wait
           </Button>
         )}
         {pool.length < 10 && (
@@ -200,7 +182,7 @@ const PoolCard = ({ data, mode, address }) => {
             variant='contained'
             onClick={addStake}
             loading={loadingBtn}
-            disabled={true}
+            // disabled={true}
           >
             Stake {data.stake} {rewards[mode]}
           </Button>
