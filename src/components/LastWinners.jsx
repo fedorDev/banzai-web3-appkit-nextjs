@@ -17,6 +17,7 @@ const LastWinnersCarousel = ({ rates }) => {
   const settings = {
     dots: false,
     infinite: true,
+    arrows: false,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
