@@ -157,10 +157,10 @@ const PoolCard = ({ data, mode, address }) => {
           text={({ value, valueMax }) => `${pool.length} / 10`}
           sx={(theme) => ({
             [`& .${gaugeClasses.valueArc}`]: {
-              fill: mode == 'bsc' ? '#ad911f' : '#2a61ca',
+              fill: mode == 'bsc' ? '#F0B90B' : '#2a61ca',
             },
             [`& .${gaugeClasses.referenceArc}`]: {
-              fill: mode == 'bsc' ? '#f8de75' : '#bad0fa',
+              fill: mode == 'bsc' ? '#faf0b9' : '#bad0fa',
             },
           })}
         />

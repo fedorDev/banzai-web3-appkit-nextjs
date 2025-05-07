@@ -26,7 +26,7 @@ function CircularProgressWithIcon(props) {
         sx={(theme) => ({
           height: '40px',
           width: '40px',
-          color: props.mode == 'bsc' ? '#f8de75' : '#bad0fa',
+          color: props.mode == 'bsc' ? '#faf0b9' : '#bad0fa',
         })}
       />
       <CircularProgress
@@ -35,7 +35,7 @@ function CircularProgressWithIcon(props) {
           position: 'absolute',
           height: '40px',
           width: '40px',
-          color: props.mode == 'bsc' ? '#ad911f' : '#2a61ca',
+          color: props.mode == 'bsc' ? '#F0B90B' : '#2a61ca',
         })}
       />
       <Box
