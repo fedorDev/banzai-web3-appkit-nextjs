@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import {
   Button,
   Box,
+  CircularProgress,
   Stack,
   Grid,
   Tooltip,
@@ -10,13 +11,52 @@ import {
   IconButton,
   useMediaQuery,
 } from '@mui/material'
+import { circularProgressClasses } from '@mui/material/CircularProgress'
 import { useRouter } from 'next/navigation'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { shortAddr, rewards } from '@/helpers/utils'
 
 let playerCnt = 0
 
-const PoolListItem = ({ data, mode, rates }) => {
+function CircularProgressWithIcon(props) {
+  return (
+    <Box sx={{ position: 'relative', display: 'flex', marginRight: '8px' }}>
+      <CircularProgress
+        variant="determinate" value={100}
+        sx={(theme) => ({
+          height: '40px',
+          width: '40px',
+          color: props.mode == 'bsc' ? '#f8de75' : '#bad0fa',
+        })}
+      />
+      <CircularProgress
+        variant="determinate" value={props.value*10}
+        sx={(theme) => ({
+          position: 'absolute',
+          height: '40px',
+          width: '40px',
+          color: props.mode == 'bsc' ? '#ad911f' : '#2a61ca',
+        })}
+      />
+      <Box
+        sx={{
+          top: '4px',
+          right: '4px',
+          width: '32px',
+          height: '32px',
+          position: 'absolute',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <img src={`/icons/coins/${props.mode}.png`} />
+      </Box>
+    </Box>
+  );
+}
+
+const PoolListItem = ({ data, mode, rates, players }) => {
   const isMobile = useMediaQuery('(max-width: 768px)')
   const router = useRouter()
   const [price, setPrice] = useState(0)
@@ -35,7 +75,7 @@ const PoolListItem = ({ data, mode, rates }) => {
 
   return (
     <Box className={isMobile ? 'pool-list-item-mob' : 'pool-list-item'} onClick={openPool}>
-      <img src={`/icons/coins/${mode}.png`} />
+      <CircularProgressWithIcon value={players} mode={mode} />
       <Box sx={{ width: '280px', textAlign: 'left', display: 'flex', flexDirection: 'column' }}>
         <div>{data.title}</div>
         <span className='pool-list-subtitle'>

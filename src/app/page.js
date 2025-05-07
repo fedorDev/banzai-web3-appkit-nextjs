@@ -12,6 +12,8 @@ import LastWinners from '@/components/LastWinners'
 import Link from 'next/link'
 
 export default function Home() {
+  const [loading, setLoading] = useState(true)
+  const [activity, setActivity] = useState({})
   const { address, isConnected } = useAppKitAccount()
   const { chainId } = useAppKitNetwork()
   const router = useRouter()
@@ -29,6 +31,16 @@ export default function Home() {
     if (isConnected) setPools(poolsConf[chainId == 1 ? 'eth' : 'bsc'])
   }, [isConnected, chainId])
 
+  const loadActivity = async () => {
+    const req = await fetch('/api/pools-activity').catch((err) => false)
+    if (!req || !req.ok) return false
+
+    const data = await req.json()
+    if (data && data.state) {
+      setActivity(data.state)
+    }      
+  }
+
   const loadRates = async () => {
     const req = await fetch('/api/coin-prices').catch((err) => false)
     if (!req || !req.ok) return false
@@ -42,6 +54,7 @@ export default function Home() {
 
   useEffect(() => {
     loadRates()
+    loadActivity()
   }, [])
 
   const openPool = (address) => {
@@ -85,7 +98,13 @@ export default function Home() {
           <Typography variant='h5'>Pools available:</Typography>
           <Stack direction='column'>
             {pools.map((pool) => (
-              <PoolListItem data={pool} mode={chain} key={pool.address} rates={rates} />
+              <PoolListItem
+                data={pool}
+                mode={chain}
+                key={pool.address}
+                rates={rates}
+                players={activity[pool.address]}
+              />
             ))}
           </Stack>
 
