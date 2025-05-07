@@ -156,12 +156,11 @@ const PoolCard = ({ data, mode, address }) => {
           endAngle={90}
           text={({ value, valueMax }) => `${pool.length} / 10`}
           sx={(theme) => ({
-            /*
             [`& .${gaugeClasses.valueArc}`]: {
-              fill: '#52b202',
-            }, */
+              fill: mode == 'bsc' ? '#ad911f' : '#2a61ca',
+            },
             [`& .${gaugeClasses.referenceArc}`]: {
-              fill: '#ccc',
+              fill: mode == 'bsc' ? '#f8de75' : '#bad0fa',
             },
           })}
         />
