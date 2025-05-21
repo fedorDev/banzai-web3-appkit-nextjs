@@ -32,6 +32,20 @@ export default function PoolPage() {
     })
   }
 
+  const loadRates = async () => {
+    const req = await fetch('/api/coin-prices').catch((err) => false)
+    if (!req || !req.ok) return false
+
+    const data = await req.json()
+    if (data && data.rates) {
+      window.latest_rates = data.rates // set global
+    }    
+  }
+
+  useEffect(() => {
+    loadRates()
+  }, [])
+
   useEffect(() => {
     let chain = false
 
