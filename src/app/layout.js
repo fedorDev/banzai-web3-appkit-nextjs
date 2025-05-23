@@ -38,11 +38,22 @@ export default async function RootLayout({ children }) {
           {children}
 
           <footer className={'footer'}>
+            <Link href="/leaderboard">
+              <Image
+                aria-hidden
+                src="/crown.svg"
+                alt="Winners"
+                width={16}
+                height={16}
+              />
+              Leaderboard
+            </Link>
+
             <Link href="/rules">
               <Image
                 aria-hidden
                 src="/file.svg"
-                alt="File icon"
+                alt="Rules"
                 width={16}
                 height={16}
               />

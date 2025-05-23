@@ -1,7 +1,3 @@
-import _ from 'lodash'
-import { parseEther, formatEther } from 'viem'
-import poolsConf from '@/config/pools'
-
 export const config = {
   api: {
     bodyParser: false,

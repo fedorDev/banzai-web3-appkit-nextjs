@@ -5,7 +5,7 @@ export const config = {
 }
 
 const handler = async (req, res) => {
-  const request = await fetch('http://data.banzai.meme:8081/state')
+  const request = await fetch('http://data.banzai.meme:8081/leaderboard')
 
   if (request && request.ok) {
     const data = await request.json()

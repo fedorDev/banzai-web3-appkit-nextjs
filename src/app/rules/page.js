@@ -1,13 +1,8 @@
 'use client'
 
-import { useState, useEffect, useMemo } from 'react'
-import Image from 'next/image'
-import { useRouter } from 'next/navigation'
 import styles from './page.module.css'
-import { useAppKitAccount, useAppKitNetwork } from '@reown/appkit/react'
 import poolsConf from '@/config/pools'
-import { Box, Typography, Button, Stack, Link } from '@mui/material'
-import PoolListItem from '@/components/PoolListItem'
+import { Box, Typography, Button, Link } from '@mui/material'
 
 export default function Home() {
   return (
