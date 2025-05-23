@@ -2,6 +2,7 @@
 
 import styles from './page.module.css'
 import { useState, useEffect } from 'react'
+import Davatar from '@davatar/react'
 import poolsConf from '@/config/pools'
 import {
   Box,
@@ -97,6 +98,7 @@ export default function Home() {
             <Table sx={{ minWidth: 700 }} aria-label="customized table">
               <TableHead>
                 <TableRow>
+                  <StyledTableCell></StyledTableCell>
                   <StyledTableCell>Player</StyledTableCell>
                   <StyledTableCell align="right">X Username</StyledTableCell>
                   <StyledTableCell align="right">Rounds</StyledTableCell>
@@ -107,6 +109,13 @@ export default function Home() {
               <TableBody>
                 {list.map((row) => (
                   <StyledTableRow key={row.address}>
+                    <StyledTableCell>
+                      <Davatar
+                        size={28}
+                        address={row.address}
+                        generatedAvatarType='blockies'
+                      />                      
+                    </StyledTableCell>
                     <StyledTableCell component="th" scope="row">
                       <span className={styles.address}>
                         {row.address}
