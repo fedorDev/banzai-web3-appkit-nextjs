@@ -79,7 +79,7 @@ const PoolListItem = ({ data, mode, rates, players }) => {
       <Box sx={{ width: '280px', textAlign: 'left', display: 'flex', flexDirection: 'column' }}>
         <div>{data.title}</div>
         <span className='pool-list-subtitle'>
-          Stake: {data.stake} {rewards[mode]},  Reward: {(data.stake*9).toFixed(1)} {rewards[mode]}
+          Stake: {data.stake} {rewards[mode]},  Reward: {data.prize} {rewards[mode]}
           {price > 0 && (<em> (${Math.floor(fmt)})</em>)}
         </span>
       </Box>
