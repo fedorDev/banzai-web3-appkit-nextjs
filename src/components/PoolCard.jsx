@@ -142,7 +142,7 @@ const PoolCard = ({ data, mode, address }) => {
       <Typography
         variant='h6'
         sx={{ display: 'flex', alignItems: 'center' }}>
-        <span>Prize: {data.stake * 9}</span>
+        <span>Prize: {(data.stake * 9).toFixed(1)}</span>
         <img className={'coin-big'} src={`/icons/coins/${mode}.png`} />
         {price > 0 && (<em style={{ color: '#bbb', fontSize: '14px' }}> (${p.toFixed(1)})</em>)}
       </Typography>
