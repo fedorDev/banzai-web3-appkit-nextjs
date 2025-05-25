@@ -42,6 +42,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function Home() {
   const [list, setList] = useState([])
+  const [total, setTotal] = useState(0)
 
   const loadRates = async () => {
     const req = await fetch('/api/coin-prices').catch((err) => false)
@@ -61,6 +62,20 @@ export default function Home() {
     if (req && req.ok) {
       const data = await req.json()
       setList(data.leaderboard)
+
+      let sum = 0
+      data.leaderboard.forEach((item) => {
+        const val = item.profits
+        if (val.eth && window.latest_rates) {
+          sum += val.eth * window.latest_rates.eth
+        }
+
+        if (val.bsc && window.latest_rates) {
+          sum += val.bsc * window.latest_rates.bnb
+        }        
+      })
+
+      setTotal(sum)
     }
   }
 
@@ -93,6 +108,10 @@ export default function Home() {
     <div className={styles.page}>
         <main className={styles.main}>
           <Typography variant='h5' sx={{ textAlign: 'center' }}>Winners</Typography>
+
+          {total > 0 && (
+            <Typography variant='h6'>Total payouts: {total.toFixed(2)} USD</Typography>
+          )}
 
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 700 }} aria-label="customized table">
