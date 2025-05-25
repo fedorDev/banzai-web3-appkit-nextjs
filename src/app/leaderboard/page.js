@@ -1,5 +1,5 @@
 'use client'
-
+import _ from 'lodash'
 import styles from './page.module.css'
 import { useState, useEffect } from 'react'
 import Davatar from '@davatar/react'
@@ -7,6 +7,7 @@ import poolsConf from '@/config/pools'
 import {
   Box,
   Button,
+  CircularProgress,
   Typography,
   Table,
   TableRow,
@@ -43,6 +44,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export default function Home() {
   const [list, setList] = useState([])
   const [total, setTotal] = useState(0)
+  const [loading, setLoading] = useState(true)
 
   const loadRates = async () => {
     const req = await fetch('/api/coin-prices').catch((err) => false)
@@ -61,20 +63,28 @@ export default function Home() {
 
     if (req && req.ok) {
       const data = await req.json()
-      setList(data.leaderboard)
 
       let sum = 0
       data.leaderboard.forEach((item) => {
         const val = item.profits
+        item.profit_usd = 0
         if (val.eth && window.latest_rates) {
-          sum += val.eth * window.latest_rates.eth
+          const k = val.eth * window.latest_rates.eth
+          sum += k
+          item.profit_usd += k
         }
 
         if (val.bsc && window.latest_rates) {
-          sum += val.bsc * window.latest_rates.bnb
-        }        
+          const k = val.bsc * window.latest_rates.bnb
+          sum += k
+          item.profit_usd += k
+        }
       })
 
+      const sorted = _.orderBy(data.leaderboard, ['rounds', 'profit_usd'], ['desc', 'desc'])
+      setList(sorted)
+
+      setLoading(false)
       setTotal(sum)
     }
   }
@@ -103,6 +113,14 @@ export default function Home() {
 
     return sum.toFixed(2)
   }
+
+  if (loading) return (
+    <div className={styles.page}>
+      <main className={styles.main}>
+        <CircularProgress />
+      </main>
+    </div>
+  )
 
   return (
     <div className={styles.page}>
