@@ -137,14 +137,14 @@ export default function Home() {
                 <TableRow>
                   <StyledTableCell></StyledTableCell>
                   <StyledTableCell>Player</StyledTableCell>
-                  <StyledTableCell align="right">X Username</StyledTableCell>
+                  <StyledTableCell align="right">X link</StyledTableCell>
                   <StyledTableCell align="right">Rounds</StyledTableCell>
                   <StyledTableCell align="right">Profits</StyledTableCell>
                   <StyledTableCell align="right">Summary *aprox</StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {list.map((row) => (
+                {list.map((row, ind) => (
                   <StyledTableRow key={row.address}>
                     <StyledTableCell>
                       <Davatar
@@ -155,7 +155,7 @@ export default function Home() {
                     </StyledTableCell>
                     <StyledTableCell component="th" scope="row">
                       <span className={styles.address}>
-                        {row.address}
+                        {ind+1}. {row.address}
                       </span>
                     </StyledTableCell>
                     <StyledTableCell align="right">
