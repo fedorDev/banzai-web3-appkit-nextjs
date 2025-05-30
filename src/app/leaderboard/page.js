@@ -137,7 +137,6 @@ export default function Home() {
                 <TableRow>
                   <StyledTableCell></StyledTableCell>
                   <StyledTableCell>Player</StyledTableCell>
-                  <StyledTableCell align="right">X link</StyledTableCell>
                   <StyledTableCell align="right">Rounds</StyledTableCell>
                   <StyledTableCell align="right">Profits</StyledTableCell>
                   <StyledTableCell align="right">Summary *aprox</StyledTableCell>
@@ -157,13 +156,6 @@ export default function Home() {
                       <span className={styles.address}>
                         {ind+1}. {row.address}
                       </span>
-                    </StyledTableCell>
-                    <StyledTableCell align="right">
-                      {row.username && (
-                        <Link href={`https://x.com/${row.username}`} target='_blank'>
-                          {row.username}
-                        </Link>
-                      )}
                     </StyledTableCell>
                     <StyledTableCell align="right">{row.rounds}</StyledTableCell>
                     <StyledTableCell align="right">{formatProfit(row.profits)}</StyledTableCell>
