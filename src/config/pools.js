@@ -23,7 +23,7 @@ const poolsConfig = {
       "title": "ETH Gold v2",
       "address": "0xb33e84B83E8ACF3450478c316Df95312d8B2953F",
       "stake": 0.3,
-      "prize": 0.27,
+      "prize": 2.7,
     }
   ],
   "bsc": [
@@ -49,7 +49,7 @@ const poolsConfig = {
       "title": "BSC Gold v2",
       "address": "0x2762cD88F139c361E8AdB09591dCE4624e3bAc3d",
       "stake": 0.3,
-      "prize": 0.27,
+      "prize": 2.7,
     }
   ],
   "sol": []
