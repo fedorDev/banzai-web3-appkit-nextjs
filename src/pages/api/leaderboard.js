@@ -5,7 +5,8 @@ export const config = {
 }
 
 const handler = async (req, res) => {
-  const request = await fetch('http://data.banzai.meme:8081/leaderboard')
+  // proxy request to GoLang service
+  const request = await fetch('http://data.banzai.meme:8082/leaders')
 
   if (request && request.ok) {
     const data = await request.json()

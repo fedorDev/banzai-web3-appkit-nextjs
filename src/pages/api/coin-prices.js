@@ -15,24 +15,17 @@ let cache = {}
 let updater = false
 
 async function reloadData() {
-  const req = await fetch('https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=ETH,BNB,SOL', {
-    headers: {
-      'X-CMC_PRO_API_KEY': API_KEY,
-    },
-  }).catch((err) => {
+  // proxy request to GoLang service
+  const req = await fetch('http://data.banzai.meme:8082/rates').catch((err) => {
     console.log('failed', err)
     return false
   })
   
   if (!req || !req.ok) return false
   const response = await req.json()
-  Object.keys(response.data).forEach((ticker) => {
-    const k = ticker.toLowerCase()
-
-    if (response.data[ticker].quote && response.data[ticker].quote.USD.price) {
-      cache[k] = response.data[ticker].quote.USD.price
-      if (k === 'bnb') cache.bsc = cache[k] // duplicate
-    }
+  response.forEach((item) => {
+    cache[item.ticker] = item.price
+    if (item.ticker === 'bnb') cache.bsc = item.price // duplicate
   })
   const now = Date.now()
   lastUpdated = now

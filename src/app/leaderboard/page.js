@@ -65,25 +65,11 @@ export default function Home() {
       const data = await req.json()
 
       let sum = 0
-      data.leaderboard.forEach((item) => {
-        const val = item.profits
-        item.profit_usd = 0
-        if (val.eth && window.latest_rates) {
-          const k = val.eth * window.latest_rates.eth
-          sum += k
-          item.profit_usd += k
-        }
-
-        if (val.bsc && window.latest_rates) {
-          const k = val.bsc * window.latest_rates.bnb
-          sum += k
-          item.profit_usd += k
-        }
+      data.forEach((item) => {
+        sum += item.profit_usd
       })
 
-      const sorted = _.orderBy(data.leaderboard, ['rounds', 'profit_usd'], ['desc', 'desc'])
-      setList(sorted)
-
+      setList(data)
       setLoading(false)
       setTotal(sum)
     }
@@ -94,24 +80,10 @@ export default function Home() {
   }, [])
 
   const formatProfit = (val) => {
-    if (!val.eth) return `${val.bsc} BNB`
-    if (!val.bsc) return `${val.eth} ETH`
+    if (!val.profit_eth) return `${val.profit_bnb} BNB`
+    if (!val.profit_bnb) return `${val.profit_eth} ETH`
 
-    return `${val.eth} ETH, ${val.bsc} BNB`
-  }
-
-  const sumProfit = (val) => {
-    let sum = 0
-
-    if (val.eth && window.latest_rates) {
-      sum += val.eth * window.latest_rates.eth
-    }
-
-    if (val.bsc && window.latest_rates) {
-      sum += val.bsc * window.latest_rates.bnb
-    }
-
-    return sum.toFixed(2)
+    return `${val.profit_eth} ETH, ${val.profit_bnb} BNB`
   }
 
   if (loading) return (
@@ -158,8 +130,8 @@ export default function Home() {
                       </span>
                     </StyledTableCell>
                     <StyledTableCell align="right">{row.rounds}</StyledTableCell>
-                    <StyledTableCell align="right">{formatProfit(row.profits)}</StyledTableCell>
-                    <StyledTableCell align="right">{sumProfit(row.profits)} USD</StyledTableCell>
+                    <StyledTableCell align="right">{formatProfit(row)}</StyledTableCell>
+                    <StyledTableCell align="right">{row.profit_usd} USD</StyledTableCell>
                   </StyledTableRow>
                 ))}
               </TableBody>
