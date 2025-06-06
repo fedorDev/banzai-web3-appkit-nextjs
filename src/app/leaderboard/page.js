@@ -44,6 +44,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export default function Home() {
   const [list, setList] = useState([])
   const [total, setTotal] = useState(0)
+  const [totalRounds, setTotalRounds] = useState(0)
   const [loading, setLoading] = useState(true)
 
   const loadRates = async () => {
@@ -65,13 +66,16 @@ export default function Home() {
       const data = await req.json()
 
       let sum = 0
+      let rounds = 0
       data.forEach((item) => {
         sum += item.profit_usd
+        rounds += item.rounds
       })
 
       setList(data)
       setLoading(false)
       setTotal(sum)
+      setTotalRounds(rounds)
     }
   }
 
@@ -100,7 +104,7 @@ export default function Home() {
           <Typography variant='h5' sx={{ textAlign: 'center' }}>Winners</Typography>
 
           {total > 0 && (
-            <Typography variant='h6'>Total payouts: {total.toFixed(2)} USD</Typography>
+            <Typography variant='h6'>Rounds played: {totalRounds}. Total payouts: {total.toFixed(2)} USD</Typography>
           )}
 
           <TableContainer component={Paper}>
