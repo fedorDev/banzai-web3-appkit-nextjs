@@ -16,8 +16,9 @@ import {
   TableHead,
   Link,
   Paper,
+  useMediaQuery,
  } from '@mui/material'
-
+import { shortAddr } from '@/helpers/utils'
 import { styled } from '@mui/material/styles'
 import TableCell, { tableCellClasses } from '@mui/material/TableCell'
 
@@ -42,6 +43,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }))
 
 export default function Home() {
+  const isMobile = useMediaQuery('(max-width: 768px)')
   const [list, setList] = useState([])
   const [total, setTotal] = useState(0)
   const [totalRounds, setTotalRounds] = useState(0)
@@ -97,6 +99,52 @@ export default function Home() {
       </main>
     </div>
   )
+
+  if (isMobile) {
+    return (
+      <div className={styles.page}>
+        <main className={styles.main}>
+          <Typography variant='h5' sx={{ textAlign: 'center' }}>Winners</Typography>
+
+          {total > 0 && (
+            <Typography variant='h6'>Rounds played: {totalRounds}. Total payouts: {total.toFixed(2)} USD</Typography>
+          )}
+
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 300 }} aria-label="customized table">
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell></StyledTableCell>
+                  <StyledTableCell sx={{ padding: '8px' }}>Player</StyledTableCell>
+                  <StyledTableCell sx={{ padding: '8px' }}>Rounds</StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {list.map((row, ind) => (
+                  <StyledTableRow key={row.address}>
+                    <StyledTableCell sx={{ padding: '8px' }}>
+                      <Davatar
+                        size={28}
+                        address={row.address}
+                        generatedAvatarType='blockies'
+                      />                      
+                    </StyledTableCell>
+                    <StyledTableCell scope="row">
+                      <span className={styles.address}>
+                        {ind+1}. {shortAddr(row.address)}
+                      </span><br/>
+                      Profit: {row.profit_usd} USD
+                    </StyledTableCell>
+                    <StyledTableCell align="right">{row.rounds}</StyledTableCell>
+                  </StyledTableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </main>
+      </div>
+    )
+  }
 
   return (
     <div className={styles.page}>
