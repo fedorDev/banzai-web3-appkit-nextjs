@@ -107,11 +107,11 @@ export default function Home() {
           <Typography variant='h5' sx={{ textAlign: 'center' }}>Winners</Typography>
 
           {total > 0 && (
-            <Typography variant='h6'>Rounds played: {totalRounds}. Total payouts: {total.toFixed(2)} USD</Typography>
+            <span>Rounds played: {totalRounds}<br/>Total payouts: {total.toFixed(2)} USD</span>
           )}
 
           <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 300 }} aria-label="customized table">
+            <Table sx={{ minWidth: 330 }} aria-label="customized table">
               <TableHead>
                 <TableRow>
                   <StyledTableCell></StyledTableCell>

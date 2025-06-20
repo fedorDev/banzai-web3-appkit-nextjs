@@ -34,14 +34,6 @@
   font-size: 14px;
 }
 
-.main code {
-  font-family: inherit;
-  background: var(--gray-alpha-100);
-  padding: 2px 4px;
-  border-radius: 4px;
-  font-weight: 600;
-}
-
 .footer {
   grid-row-start: 3;
   display: flex;
@@ -72,12 +64,12 @@
 
 @media (max-width: 768px) {
   .page {
-    padding: 32px;
+    padding: 10px;
     padding-bottom: 80px;
   }
 
   .main {
-    max-width: 300px;
+    max-width: 330px;
     align-items: center;
   }
 
