@@ -37,7 +37,7 @@ const PoolCard = ({ data, mode, address }) => {
   const [price, setPrice] = useState(0)
   const [lastWinner, setLastWinner] = useState(false)
 
-  const progress = pool.length * 10
+  const progress = (pool.length / data.players) * 100
   const provider = false
 
   const getLastWinner = async () => {
@@ -154,7 +154,7 @@ const PoolCard = ({ data, mode, address }) => {
           value={progress}
           startAngle={-90}
           endAngle={90}
-          text={({ value, valueMax }) => `${pool.length} / 10`}
+          text={({ value, valueMax }) => `${pool.length} / ${data.players}`}
           sx={(theme) => ({
             [`& .${gaugeClasses.valueArc}`]: {
               fill: mode == 'bsc' ? '#F0B90B' : '#2a61ca',
@@ -168,7 +168,7 @@ const PoolCard = ({ data, mode, address }) => {
       Your chance: {chance}%
 
       <Stack direction='row' spacing={2}>
-        {pool.length > 9 && (
+        {pool.length >= data.players && (
           <Button
             variant='contained'
             color='secondary'
@@ -176,7 +176,7 @@ const PoolCard = ({ data, mode, address }) => {
             Please wait
           </Button>
         )}
-        {pool.length < 10 && (
+        {pool.length < data.players && (
           <Button
             variant='contained'
             onClick={addStake}

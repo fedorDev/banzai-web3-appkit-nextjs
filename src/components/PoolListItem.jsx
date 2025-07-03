@@ -19,6 +19,7 @@ import { shortAddr, rewards } from '@/helpers/utils'
 let playerCnt = 0
 
 function CircularProgressWithIcon(props) {
+  console.log('CHART ', props.value)
   return (
     <Box sx={{ position: 'relative', display: 'flex', marginRight: '8px' }}>
       <CircularProgress
@@ -30,7 +31,7 @@ function CircularProgressWithIcon(props) {
         })}
       />
       <CircularProgress
-        variant="determinate" value={props.value*10}
+        variant="determinate" value={props.value}
         sx={(theme) => ({
           position: 'absolute',
           height: '40px',
@@ -71,11 +72,11 @@ const PoolListItem = ({ data, mode, rates, players }) => {
     }
   }, [rates])
 
-  const fmt = data.stake*9*price
+  const fmt = data.prize * price
 
   return (
     <Box className={isMobile ? 'pool-list-item-mob' : 'pool-list-item'} onClick={openPool}>
-      <CircularProgressWithIcon value={players} mode={mode} />
+      <CircularProgressWithIcon value={Math.floor((players/data.players)*100)} mode={mode} />
       <Box sx={{ width: '280px', textAlign: 'left', display: 'flex', flexDirection: 'column' }}>
         <div>{data.title}</div>
         <span className='pool-list-subtitle'>
