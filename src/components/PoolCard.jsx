@@ -131,7 +131,7 @@ const PoolCard = ({ data, mode, address }) => {
   }
 
   const isCreator = address == creator
-  const p = data.stake * 9 * price
+  const p = data.prize * price
 
   return (
     <Box className='pool-card'>
