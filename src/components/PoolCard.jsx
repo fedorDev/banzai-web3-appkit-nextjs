@@ -81,7 +81,7 @@ const PoolCard = ({ data, mode, address }) => {
     pool.forEach((item) => {
       if (item.toLowerCase() == lowAddr) c++
     })
-    setChance(c*10)
+    setChance((c/data.players)*100)
   }
 
   const addStake = async () => {
@@ -95,7 +95,6 @@ const PoolCard = ({ data, mode, address }) => {
 
     if (res) {
       setLoadingBtn(true)
-      console.log('data', res)
       enqueueSnackbar('Added your stake!', { variant: 'success' })
     }
   }
@@ -165,7 +164,7 @@ const PoolCard = ({ data, mode, address }) => {
           })}
         />
       </Box>
-      Your chance: {chance}%
+      Your chance: {chance.toFixed(1)}%
 
       <Stack direction='row' spacing={2}>
         {pool.length >= data.players && (
