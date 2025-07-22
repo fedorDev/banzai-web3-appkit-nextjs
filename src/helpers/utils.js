@@ -14,3 +14,7 @@ export const getTxLink = (mode, hash) => {
   if (mode == 'bsc') return `https://bscscan.com/tx/${hash}`
   return `https://etherscan.io/tx/${hash}`
 }
+
+export const isValidAddress = (address) => {
+  return /^0x[0-9a-fA-F]{40}$/.test(address);
+}

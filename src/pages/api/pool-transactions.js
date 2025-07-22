@@ -1,17 +1,4 @@
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-}
-
-const lastUpdated = {}
-const allowedChains = ['eth', 'bsc']
-
-const cache = {}
-
-function isValidAddress(address) {
-  return /^0x[0-9a-fA-F]{40}$/.test(address);
-}
+import { isValidAddress  } from "@/helpers/utils"
 
 const handler = async (req, res) => {
   const addr = req.query.address

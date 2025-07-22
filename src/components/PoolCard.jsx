@@ -89,13 +89,13 @@ const PoolCard = ({ data, mode, address }) => {
       to: data.address,
       value: parseEther(`${data.stake}`),
     }).catch((err) => {
-      enqueueSnackbar('Failed to send stake', { variant: 'error' })
+      if (!isMobile) enqueueSnackbar('Failed to send stake', { variant: 'error' })
       return false
     })
 
     if (res) {
       setLoadingBtn(true)
-      enqueueSnackbar('Added your stake!', { variant: 'success' })
+      if (!isMobile) enqueueSnackbar('Added your stake!', { variant: 'success' })
     }
   }
 
@@ -189,9 +189,9 @@ const PoolCard = ({ data, mode, address }) => {
           variant='contained'
           sx={{ bgcolor: 'primary.light' }}
           onClick={() => {
-          navigator.clipboard.writeText(data.address)
-          enqueueSnackbar('Copied address of contract', { variant: 'success' })
-        }}
+            navigator.clipboard.writeText(data.address)
+            enqueueSnackbar('Copied address of contract', { variant: 'success' })
+          }}
         >
           <img src='/icons/copy.svg' style={{ width: '24px', height: '24px' }}/>
         </Button>

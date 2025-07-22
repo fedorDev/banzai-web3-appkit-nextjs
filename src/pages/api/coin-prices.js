@@ -2,14 +2,6 @@ import _ from 'lodash'
 import { parseEther, formatEther } from 'viem'
 import poolsConf from '@/config/pools'
 
-const API_KEY = process.env.COINMARKET_API_KEY
-
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-}
-
 let lastUpdated = false
 let cache = {}
 let updater = false
