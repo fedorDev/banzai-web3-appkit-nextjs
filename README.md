@@ -1,4 +1,4 @@
-This is a [Banzai GameFi](https://banzai.meme) new dApp, created using Next.js, AppKit, Wagmi.
+This is a [Banzai GameFi](https://banzai.meme) new dApp, created using Next.js, AppKit, Wagmi, Viem, Redux Toolkit.
 
 Game concept: 
 * Users participate in the game by sending stakes of an equal amount of tokens to the smart contract, for example, 0.1 ETH per stake.
