@@ -3,9 +3,10 @@
 import { useState, useEffect } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { SnackbarProvider } from 'notistack'
-import Image from 'next/image'
 import styles from "./page.module.css"
 import { wagmiAdapter } from '@/config'
+import { useDispatch } from 'react-redux'
+import { fetchRates } from '@/store/ratesSlice'
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn'
 import { useAppKitAccount, useAppKitNetwork } from "@reown/appkit/react"
 import poolsConf from '@/config/pools'
@@ -14,6 +15,7 @@ import PoolCard from '@/components/PoolCard'
 import ActivityCard from '@/components/ActivityCard'
 
 export default function PoolPage() {
+  const dispatch = useDispatch()
   const { address, isConnected } = useAppKitAccount()
   const { chainId, switchNetwork } = useAppKitNetwork()
   const [pool, setPool] = useState(false)
@@ -32,19 +34,9 @@ export default function PoolPage() {
     })
   }
 
-  const loadRates = async () => {
-    const req = await fetch('/api/coin-prices').catch((err) => false)
-    if (!req || !req.ok) return false
-
-    const data = await req.json()
-    if (data && data.rates) {
-      window.latest_rates = data.rates // set global
-    }    
-  }
-
   useEffect(() => {
-    loadRates()
-  }, [])
+    dispatch(fetchRates())
+  }, [dispatch])
 
   useEffect(() => {
     let chain = false

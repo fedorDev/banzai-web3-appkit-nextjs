@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import {
   Button,
   Box,
@@ -19,7 +20,6 @@ import { shortAddr, rewards } from '@/helpers/utils'
 let playerCnt = 0
 
 function CircularProgressWithIcon(props) {
-  console.log('CHART ', props.value)
   return (
     <Box sx={{ position: 'relative', display: 'flex', marginRight: '8px' }}>
       <CircularProgress
@@ -57,10 +57,11 @@ function CircularProgressWithIcon(props) {
   );
 }
 
-const PoolListItem = ({ data, mode, rates, players }) => {
+const PoolListItem = ({ data, mode, players }) => {
   const isMobile = useMediaQuery('(max-width: 768px)')
   const router = useRouter()
   const [price, setPrice] = useState(0)
+  const rates = useSelector((state) => state.rates.rates)
 
   const openPool = () => {
     router.push(`/${mode}/${data.address}`)
@@ -70,7 +71,7 @@ const PoolListItem = ({ data, mode, rates, players }) => {
     if (rates && rates[mode]) {
       setPrice(rates[mode])
     }
-  }, [rates])
+  }, [rates, mode])
 
   const fmt = data.prize * price
 

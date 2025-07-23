@@ -32,16 +32,17 @@ const modal = createAppKit({
   features: {
     connectMethodsOrder: ['wallet'],
     swaps: false,
-    analytics: true, // Optional - defaults to your Cloud configuration
+    analytics: false,
   }
 })
 
-function ContextProvider({ children, cookies }) {
-  const initialState = cookieToInitialState(wagmiAdapter.wagmiConfig, cookies)
+function ContextProvider({ children }) {
 
   return (
-    <WagmiProvider config={wagmiAdapter.wagmiConfig} initialState={initialState}>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <WagmiProvider config={wagmiAdapter.wagmiConfig}>
+      <QueryClientProvider client={queryClient}>
+        {children}
+        </QueryClientProvider>
     </WagmiProvider>
   )
 }

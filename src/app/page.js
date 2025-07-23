@@ -10,16 +10,18 @@ import { Box, Typography, Button, Stack } from '@mui/material'
 import PoolListItem from '@/components/PoolListItem'
 import LastWinners from '@/components/LastWinners'
 import Link from 'next/link'
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchRates } from '@/store/ratesSlice'
 
 export default function Home() {
-  const [loading, setLoading] = useState(true)
   const [activity, setActivity] = useState({})
   const { address, isConnected } = useAppKitAccount()
   const { chainId } = useAppKitNetwork()
   const router = useRouter()
 
   const [pools, setPools] = useState(false)
-  const [rates, setRates] = useState(false)
+  const rates = useSelector((state) => state.rates.rates)
+  const dispatch = useDispatch()
 
   const chain = useMemo(() => {
     if (chainId == 1) return 'eth'
@@ -41,31 +43,22 @@ export default function Home() {
     }      
   }
 
-  const loadRates = async () => {
-    const req = await fetch('/api/coin-prices').catch((err) => false)
-    if (!req || !req.ok) return false
-
-    const data = await req.json()
-    if (data && data.rates) {
-      window.latest_rates = data.rates // set global
-      setRates(data.rates)
-    }    
-  }
-
   useEffect(() => {
-    loadRates()
+    dispatch(fetchRates())
     loadActivity()
-  }, [])
+  }, [dispatch])
 
   const openPool = (address) => {
     router.push(`/${chain}/${address}/`)
   }
 
+  console.log('got RATES', rates)
+
   return (
     <div className={styles.page}>
       {!pools && (
         <main className={styles.main}>
-          <LastWinners rates={rates} />
+          <LastWinners />
 
           <Image
             className={styles.logo}
@@ -94,7 +87,7 @@ export default function Home() {
 
       {pools && pools.length > 0 && (
         <main className={styles.main}>        
-          <LastWinners rates={rates} />
+          <LastWinners />
           <Typography variant='h5'>Pools available:</Typography>
           <Stack direction='column'>
             {pools.map((pool) => (
@@ -102,7 +95,6 @@ export default function Home() {
                 data={pool}
                 mode={chain}
                 key={pool.address}
-                rates={rates}
                 players={activity[pool.address]}
               />
             ))}

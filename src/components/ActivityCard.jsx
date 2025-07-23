@@ -14,6 +14,7 @@ import {
   Link,
   useMediaQuery,
 } from '@mui/material'
+import { useSelector } from 'react-redux'
 import { shortAddr, rewards, getTxLink } from '@/helpers/utils'
 
 let playerCnt = 0
@@ -81,6 +82,7 @@ const ActivityItem = ({ data, mode, price }) => {
 
 const ActivityCard = ({ contract, mode, address }) => {
   const [list, setList] = useState([])
+  const rates = useSelector((state) => state.rates.rates)
   const [loaded, setLoaded] = useState(false)
   const [price, setPrice] = useState(0)
 
@@ -97,8 +99,8 @@ const ActivityCard = ({ contract, mode, address }) => {
   useEffect(() => {
     const updater = setInterval(loadActivity, 7000)
 
-    if (window.latest_rates && window.latest_rates[mode]) {
-      setPrice(window.latest_rates[mode])
+    if (rates && rates[mode]) {
+      setPrice(rates[mode])
     }
 
     loadActivity()

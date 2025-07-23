@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import Slider from "react-slick"
 import { Box, Stack, useMediaQuery } from '@mui/material'
 import { useRouter } from 'next/navigation'
@@ -11,9 +12,10 @@ import dayjs from 'dayjs'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
-const LastWinnersCarousel = ({ rates }) => {
+const LastWinnersCarousel = () => {
   const isMobile = useMediaQuery('(max-width: 768px)')
   const [list, setList] = useState([])
+  const rates = useSelector((state) => state.rates.rates)
   const settings = {
     dots: false,
     infinite: true,

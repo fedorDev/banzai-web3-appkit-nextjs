@@ -1,6 +1,10 @@
 import _ from 'lodash'
-import { parseEther, formatEther } from 'viem'
-import poolsConf from '@/config/pools'
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+}
 
 let lastUpdated = false
 let cache = {}
@@ -15,6 +19,7 @@ async function reloadData() {
   
   if (!req || !req.ok) return false
   const response = await req.json()
+
   response.forEach((item) => {
     cache[item.ticker] = item.price
     if (item.ticker === 'bnb') cache.bsc = item.price // duplicate

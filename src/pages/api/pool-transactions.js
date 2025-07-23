@@ -1,5 +1,11 @@
 import { isValidAddress  } from "@/helpers/utils"
 
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+}
+
 const handler = async (req, res) => {
   const addr = req.query.address
 

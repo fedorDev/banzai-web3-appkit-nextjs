@@ -13,6 +13,7 @@ import {
 import { useReadContract, useWriteContract, useSendTransaction } from 'wagmi'
 import GameAbi from '@/abi/Game.json'
 import { Gauge, gaugeClasses } from '@mui/x-charts/Gauge'
+import { useSelector } from 'react-redux'
 import { useSnackbar } from 'notistack'
 import { shortAddr, rewards } from '@/helpers/utils'
 import { parseEther } from 'viem'
@@ -22,6 +23,7 @@ let updater
 
 const PoolCard = ({ data, mode, address }) => {
   const isMobile = useMediaQuery('(max-width: 768px)')
+  const rates = useSelector((state) => state.rates.rates)
   const contractData = useReadContract({
     address: data.address,
     abi: GameAbi,
@@ -107,8 +109,8 @@ const PoolCard = ({ data, mode, address }) => {
 
   useEffect(() => {
     parsePoolData()
-    if (window.latest_rates && window.latest_rates[mode]) {
-      setPrice(window.latest_rates[mode])
+    if (rates && rates[mode]) {
+      setPrice(rates[mode])
     }
   }, [pool])
 
