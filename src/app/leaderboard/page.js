@@ -3,7 +3,8 @@ import _ from 'lodash'
 import styles from './page.module.css'
 import { useState, useEffect } from 'react'
 import Davatar from '@davatar/react'
-import poolsConf from '@/config/pools'
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchRates } from '@/store/ratesSlice'
 import {
   Box,
   Button,
@@ -42,24 +43,13 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }))
 
-export default function Home() {
+export default function LeaderboardPage() {
   const isMobile = useMediaQuery('(max-width: 768px)')
+  const dispatch = useDispatch()
   const [list, setList] = useState([])
   const [total, setTotal] = useState(0)
   const [totalRounds, setTotalRounds] = useState(0)
   const [loading, setLoading] = useState(true)
-
-  const loadRates = async () => {
-    const req = await fetch('/api/coin-prices').catch((err) => false)
-    if (!req || !req.ok) return false
-
-    const data = await req.json()
-    if (data && data.rates) {
-      window.latest_rates = data.rates // set global
-    }
-
-    getWinners()
-  }
 
   const getWinners = async () => {
     const req = await fetch('/api/leaderboard')
@@ -82,8 +72,9 @@ export default function Home() {
   }
 
   useEffect(() => {
-    loadRates()
-  }, [])
+    dispatch(fetchRates())
+    getWinners()
+  }, [dispatch])
 
   const formatProfit = (val) => {
     if (!val.profit_eth) return `${val.profit_bnb} BNB`
