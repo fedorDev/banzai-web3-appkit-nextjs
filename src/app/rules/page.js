@@ -11,24 +11,22 @@ export default function Home() {
           <Typography variant='h5' sx={{ textAlign: 'center' }}>Game Rules</Typography>
           <ol>
             <li>
-              Users send stakes of same amount to smart contract. For example 0.1 eth
+              Users participate in the game by sending stakes of an equal amount of tokens to the smart contract, for example, 0.1 ETH per stake.
             </li>
             <li>
-              When game pool is filled with 10 stakes, one random winner detected by smart contract and
-              it sends to his wallet 9 stakes amount (90% of pool). In this example: 0.9 eth
+              Once the game pool is filled with 10 stakes, the smart contract randomly selects one winner, who receives 90% of the total pool (in this example, 0.9 ETH).
             </li>
             <li>
-              One stake has 10% chance to win. 
+              Each stake gives a 10% chance to win, and a user can submit up to 5 stakes per round, increasing their chance of winning to 10–50%.
             </li>
             <li>
               Each user can send up to 5 stakes in one round. So chance to win can be from 10 to 50 percent
             </li>
             <li>
-              10% from each round is reward for developers and ecosystem. Fees earned by smart contracts are 
-              used to buy $BANZAI token.
+              The remaining 10% of the pool is reserved as a reward for developers and the ecosystem. Fees collected by the smart contract are used to purchase $BANZAI tokens.
             </li>
-
           </ol>
+
           <img src='/icons/pool_scheme.png' className={styles.scheme} />
         </main>
     </div>
