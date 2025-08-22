@@ -52,8 +52,6 @@ export default function Home() {
     router.push(`/${chain}/${address}/`)
   }
 
-  console.log('got RATES', rates)
-
   return (
     <div className={styles.page}>
       {!pools && (

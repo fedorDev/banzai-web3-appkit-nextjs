@@ -46,30 +46,32 @@ const LastWinnersCarousel = () => {
     </Box>
   )
 
+  console.log(rates, 'RATES')
+
   return (
     <Box sx={{ width: isMobile ? 320 : 460, height: 40, marginTop: isMobile ? '50px' : 0 }} className='slider-container'>
       <Slider {...settings}>
-        {list.map((item) => {
+        {list.map((item, ind) => {
           let p = false
 
           if (!isMobile && rates && rates[item.chain]) {
-            p = item.value * rates[item.chain]
+            p = item.profit * rates[item.chain]
           }
 
           return (
-            <Box className='activity-win' key={item.hash}>
+            <Box className='activity-win' key={`${item.address}_${ind}`}>
               <Box className='player-info'>
                 <Davatar
                   size={24}
-                  address={item.to}
+                  address={item.address}
                   generatedAvatarType='blockies'
                 />
 
                 <Box className='activity-txt'>
-                  {shortAddr(item.to)} won {item.value} {rewards[item.chain]} {p && (<em>({p.toFixed(2)} USD)</em>)}
+                  {shortAddr(item.address)} won {item.profit} {rewards[item.chain]} {p && (<em>({p.toFixed(2)} USD)</em>)}
                 </Box>
               </Box>
-              <span>{dayjs.unix(item.timestamp).fromNow(true)} ago</span>
+              {/* <span>{dayjs.unix(item.timestamp).fromNow(true)} ago</span> */}
             </Box>
           )
         })}
